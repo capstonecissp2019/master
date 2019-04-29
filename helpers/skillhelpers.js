@@ -332,7 +332,7 @@ module.exports = function(options) {
         {
             options.skillLookup.find({pid:req.params.id}).then(function(foundArray){
                 let found = foundArray[0];
-                const newObject = Object.assign({}, req.body)
+                const newObject = Object.assign({}, req.body);
 
                 
                 for(let i = 0; i < found.abilities.length; i++)
