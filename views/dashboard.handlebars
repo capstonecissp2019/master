@@ -1,0 +1,6 @@
+<h1> Welcome Back {{user.screenName}}</h1>
+
+<h2> Update your skills? <h2>
+    {{#each skills}}
+    <a href="/dashboard/{{pid}}/skillform">{{name}}</a>
+    {{/each}}   

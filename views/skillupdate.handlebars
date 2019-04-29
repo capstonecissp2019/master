@@ -1,0 +1,12 @@
+<h1> what skills you got for {{skill.name}} </h1>
+ <form action="skillform" method="post">
+    <P>
+    <input type="hidden" id="objectId" value="{{skill.pid}}">
+    <input type="hidden" id="objectNormalized" value="{{skill}}">
+    {{#each skill.abilities}}
+    <input type="checkbox" name="{{id}}" id="data" value="1"> {{name}}<br>
+    {{/each}}
+    </P>
+
+    <input type="submit" value="Update Skills">
+ </form>
