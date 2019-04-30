@@ -82,7 +82,7 @@ console.log(seperationDistanceTester());
 /** Allows for updates and permutations to be processsed */
 
 function treeUpdate(tid, skillTree) {
-    if (typeof skillTree[tid] !== 'undefined' && typeof skillTree[tid].abilities !== 'undefined' && typeof skillTree[tid].abilities !== 'null') {
+    if (typeof skillTree[tid] !== 'undefined' && typeof skillTree[tid].abilities !== 'undefined' && typeof skillTree[tid].abilities !== null) {
         for (let i = 0; i < skillTree[tid].abilities.length; i++) {
             if (typeof skillTree[tid].abilities[i] !== 'undefined') {
                 treeUpdateHelper(skillTree[tid].abilities[i], skillTree);
@@ -109,7 +109,7 @@ function seperationDistanceHelper(tid, id, master, slave, tested) {
         for (let indexParents = 0; indexParents < master[tid].abilities[id].parents.length; indexParents++) {
             if (0 > tested.findIndex(x => x.tid === master[tid].abilities[id].parents[indexParents].tid && x.id === master[tid].abilities[id].parents[indexParents].id)) {
                 tested.push(master[tid].abilities[id].parents[indexParents]);
-                seperation += seperationDistanceHelper(master[tid].abilities[id].parents[indexParents].tid, master[tid].abilities[id].parents[indexParents].id, master, slave, tested)
+                seperation += seperationDistanceHelper(master[tid].abilities[id].parents[indexParents].tid, master[tid].abilities[id].parents[indexParents].id, master, slave, tested);
             }
         }
 

@@ -1,0 +1,18 @@
+
+
+
+<h1> Found Persons <h1>
+<table>
+  <tr>
+    <th>Screen Name</th>
+    <th>Percent Match</th> 
+    <th>Link</th>
+  </tr>
+    {#each accounts}}
+    <tr>
+    <td>{{screenName}}</td>
+    <td>{{distance}}%</td> 
+    <td><a href="/person/{{screenName}}"> {{screenName}}'s Page </a></td>
+  </tr>
+    {{/each}}
+</table>

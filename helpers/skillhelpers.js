@@ -1,28 +1,31 @@
-module.exports = function(options) {
 
 
+
+module.exports = function (options) {
+
+    let apiHelper = require("../helpers/apiHelper")({ skillLookup: options.skillLookup, Login: options.Login, Skill: options.Skill, skillPresets: options.skillPresets });
 
 
     return {
-        tester: function(req, res) {
+        tester: function (req, res) {
             new options.skillLookup({
                 pid: 22,
-		        name: "ddd",
-		        abilities: [
-			{
-				id: 0,
-				name: "Primitive Data Types",
-				value: 0,
-				parents: []
-			}
-		]
+                name: "ddd",
+                abilities: [
+                    {
+                        id: 0,
+                        name: "Primitive Data Types",
+                        value: 0,
+                        parents: []
+                    }
+                ]
 
-            }).save().then(function(saved){
+            }).save().then(function (saved) {
                 console.log(saved);
-                options.skillLookup.find({pid:22}).then(function(found){
+                options.skillLookup.find({ pid: 22 }).then(function (found) {
                     console.log("found" + found);
                 });
-    
+
             });
 
 
@@ -30,10 +33,10 @@ module.exports = function(options) {
         },
 
 
-        skillLoader: function(){
+        skillLoader: function () {
             new options.skillLookup({
                 pid: 0,
-                name:  "Jjava Basics",
+                name: "Jjava Basics",
                 abilities: [
                     {
                         id: 0,
@@ -46,7 +49,7 @@ module.exports = function(options) {
                         name: "Arrays",
                         value: 0,
                         parents: []
-                    },        {
+                    }, {
                         id: 2,
                         name: "Assignment, Arithmetic, and Unary Operators",
                         value: 0,
@@ -124,7 +127,7 @@ module.exports = function(options) {
                         name: "Arrays",
                         value: 0,
                         parents: []
-                    },        {
+                    }, {
                         id: 2,
                         name: "Assignment, Arithmetic, and Unary Operators",
                         value: 0,
@@ -202,10 +205,10 @@ module.exports = function(options) {
                         value: 0,
                         parents: []
                     }
-            
-            
-            
-            
+
+
+
+
                 ]
             }).save();
 
@@ -256,7 +259,7 @@ module.exports = function(options) {
                         parents: []
                     },
                     {
-                        id:7,
+                        id: 7,
                         name: "this Keyword",
                         value: 0,
                         parents: []
@@ -310,62 +313,270 @@ module.exports = function(options) {
                         parents: []
                     }
                 ]
-            } ).save();
+            }).save();
 
 
 
 
         },
-        dashboard: function(req, res)
-        {
-            options.skillLookup.find().then(function(found) {
-                res.render('dashboard', {user: req.session.data.account, skills: found});
+        presetLoader: function () {
+            new options.skillPresets({
+                pid: "basicJava",
+                name: "Basic Java",
+                params: [
+                    {
+                        tid: 0,
+                        id: 0,
+                    },
+                    {
+                        tid: 0,
+                        id: 1,
+                    },
+                    {
+                        tid: 0,
+                        id: 2,
+                    },
+                    {
+                        tid: 0,
+                        id: 3,
+                    },
+                    {
+                        tid: 0,
+                        id: 4,
+                    },
+                    {
+                        tid: 0,
+                        id: 5,
+                    },
+                    {
+                        tid: 0,
+                        id: 6,
+                    },
+                    {
+                        tid: 0,
+                        id: 7,
+                    },
+                    {
+                        tid: 0,
+                        id: 8,
+                    },
+                    {
+                        tid: 0,
+                        id: 9,
+                    },
+                    {
+                        tid: 0,
+                        id: 10,
+                    },
+                ],
+
+            }).save();
+
+            new options.skillPresets({
+                pid: "advancedJava",
+                name: "Advanced Java",
+                params: [
+                    {
+                        tid: 0,
+                        id: 0,
+                    },
+                    {
+                        tid: 0,
+                        id: 1,
+                    },
+                    {
+                        tid: 0,
+                        id: 2,
+                    },
+                    {
+                        tid: 0,
+                        id: 3,
+                    },
+                    {
+                        tid: 0,
+                        id: 4,
+                    },
+                    {
+                        tid: 0,
+                        id: 5,
+                    },
+                    {
+                        tid: 0,
+                        id: 6,
+                    },
+                    {
+                        tid: 0,
+                        id: 7,
+                    },
+                    {
+                        tid: 0,
+                        id: 8,
+                    },
+                    {
+                        tid: 0,
+                        id: 9,
+                    },
+                    {
+                        tid: 0,
+                        id: 10,
+                    },
+                    {
+                        tid: 0,
+                        id: 0,
+                    },
+                    {
+                        tid: 1,
+                        id: 1,
+                    },
+                    {
+                        tid: 1,
+                        id: 2,
+                    },
+                    {
+                        tid: 1,
+                        id: 3,
+                    },
+                    {
+                        tid: 1,
+                        id: 4,
+                    },
+                    {
+                        tid: 1,
+                        id: 5,
+                    },
+                    {
+                        tid: 1,
+                        id: 6,
+                    },
+                    {
+                        tid: 1,
+                        id: 7,
+                    },
+                    {
+                        tid: 1,
+                        id: 8,
+                    },
+                    {
+                        tid: 1,
+                        id: 9,
+                    },
+                    {
+                        tid: 1,
+                        id: 10,
+                    },
+                ],
+
+            }).save();
+
+
+        },
+
+        dashboard: function (req, res) {
+            options.skillLookup.find().then(function (found) {
+                res.render('dashboard', { user: req.session.data.account, skills: found });
             });
         },
-        
-        skillupdate: function(req, res)
-        {
+
+        skillupdate: function (req, res) {
             console.log("skill update");
-            options.skillLookup.find({pid:req.params.id}).then(function(found){
-                res.render('skillupdate', {skill: found[0]});
+            options.skillLookup.find({ pid: req.params.id }).then(function (found) {
+                res.render('skillupdate', { skill: found[0] });
             });
         },
 
-        skillPost: function(req, res)
-        {
-            options.skillLookup.find({pid:req.params.id}).then(function(foundArray){
+        skillPost: function (req, res) {
+            options.skillLookup.find({ pid: req.params.id }).then(function (foundArray) {
                 let found = foundArray[0];
                 const newObject = Object.assign({}, req.body);
 
-                
-                for(let i = 0; i < found.abilities.length; i++)
-                {
-                if(newObject.hasOwnProperty(found.abilities[i].id))
-                {
-                    found.abilities[i].value = 1;
+
+                for (let i = 0; i < found.abilities.length; i++) {
+                    if (newObject.hasOwnProperty(found.abilities[i].id)) {
+                        found.abilities[i].value = 1;
+                    }
                 }
-                }  
                 req.session.data.skill.skilltree[found.pid] = found;
                 options.Skill.findOneAndUpdate(
-                   { aid: req.session.data.skill.aid }, {$set :{aid: req.session.data.skill.aid, skilltree:  req.session.data.skill.skilltree }}
-                ).then(function(err, updated){
+                    { aid: req.session.data.skill.aid }, { $set: { aid: req.session.data.skill.aid, skilltree: req.session.data.skill.skilltree } }
+                ).then(function (err, updated) {
                     if (err) {
                         res.redirect('/dashboard');
                     }
                     else {
                         res.redirect('/dashboard');
                     }
-                });       
+                });
             });
         },
-        skillFinderGet: function(req, res) 
-        {
-            //get shit from database
-            let databaseReturn = [{name: "Basic Java", id:"basicJava"}, {name: "Basic C", id:"basicc"}, {name: "Advanced Java", id:"advancedJava"} ];
-            
-            res.render('skillfinder', {skillGroups: databaseReturn});
-            
-                //web form for the ability to search through skills
+        skillFinderGet: function (req, res) {
+
+
+            options.skillPresets.find().then(function (presets) {
+                res.render('skillfinder', { skillGroups: presets });
+            });
+
+
+            //web form for the ability to search through skills
+        },
+
+        skillFinderPost: function (req, res) {
+
+            //Creates the Search Array to get skill Presents
+            //console.log(req.body);
+            let searchArray = [];
+            if (Array.isArray(req.body.searchParams)) {
+                for (let i = 0; i < req.body.searchParams.length; i++) {
+                    //console.log({id: req.body.searchParams[i]});
+                    searchArray.push({ pid: req.body.searchParams[i] });
+                }
+            }
+            else {
+                searchArray.push({ pid: req.body.searchParams });
+            }
+            //console.log(searchArray);
+
+            //gets and merges skill presets for master
+            options.skillPresets.find({ $or: searchArray }).then(function (presets) {
+                //console.log(presets);
+                let param = [];
+                console.log(presets);
+                for (let i = 0; i < presets.length; i++) {
+                    for (let j = 0; j < presets[i].params.length; j++) {
+
+                        param.push({ tid: presets[i].params[j].tid, id: presets[i].params[j].id });
+                    }
+                }
+                console.log(param);
+                options.Skill.find().then(function (users) {
+                    console.log("Found Users");
+                    console.log(users);
+                    apiHelper.seperationFinders(users, param, function (data) {
+                        let findArray = [];
+                        for(let i = 0; i < data.length; i++)
+                        {
+                            findArray.push({_id: data[i].id});
+                        }
+                        console.log(data);
+                          options.Login.find({ $or: findArray }).then(function (accounts) {
+                              
+                            console.log(data);
+                            for(let i = 0; i < data.length; i++)
+                              {
+                                for(let j = 0; j < accounts.length; j++)
+                                {
+                                    console.log(data[i].id)
+                                    if(accounts[j]._id ==  data[i].id)
+                                    {
+                                        accounts[j].distance = (1-(data[i].distance/data[i].nodes))*100;
+                                    }
+                                }
+                              }
+                            res.render('foundPerson', { accounts: accounts });
+                        });
+                        
+                    });
+                });
+            });
         },
 
     };

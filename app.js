@@ -38,6 +38,12 @@ let mongooseSkillLookup = require("mongoose");
 let dbSkillLookup = mongooseSkillLookup.createConnection('mongodb://dbuser:dbpassword1@ds037824.mlab.com:37824/user', options);
 let skillLookup = require('./models/skillLookup.js')(dbSkillLookup);
 
+let mongooseSkillPresets = require("mongoose");
+let dbSkillPresets = mongooseSkillPresets.createConnection('mongodb://dbuser:dbpassword1@ds127646.mlab.com:27646/params', options);
+let skillPresets = require('./models/skillPresets.js')(dbSkillPresets);
+
+//mongodb://<dbuser>:<dbpassword>@ds127646.mlab.com:27646/params
+
 dbLogin.on('error', console.error.bind(console, 'connection error:'));
 dbLogin.once('open', function() { console.log("dbLogin connected"); });
 
@@ -47,15 +53,18 @@ dbSkill.once('open', function() { console.log("dbSkill connected"); });
  dbSkillLookup.on('error', console.error.bind(console, 'connection error:'));
 dbSkillLookup.once('open', function() { console.log("dbSkillLookup connected");});
 
+dbSkillPresets.on('error', console.error.bind(console, 'connection error:'));
+dbSkillPresets.once('open', function() { console.log("dbskillPresets connected");});
+
+
 //calls helpers
 let loginHelpers = require("./helpers/loginHelper.js")({ Login: Login, Skill: Skill});
-let skillHelpers = require("./helpers/skillhelpers.js")({skillLookup: skillLookup,  Login: Login, Skill: Skill});
-let apiHellpers = require("./helpers/apiHelper")({skillLookup: skillLookup,  Login: Login, Skill: Skill});
+let skillHelpers = require("./helpers/skillhelpers.js")({skillLookup: skillLookup,  Login: Login, Skill: Skill, skillPresets: skillPresets});
+let apiHellpers = require("./helpers/apiHelper")({skillLookup: skillLookup,  Login: Login, Skill: Skill, skillPresets: skillPresets});
 // Basic Web Pages
 
 
 app.get('/home', function(req, res) {
-	apiHellpers.skilltreeLoader([{tid:0, id:0},{tid:0, id:1}]);
 	res.render('home');
 });
 
@@ -87,12 +96,7 @@ app.get('/api/skillfinderform', function (req, res)
 });
 
 
-app.post('/skillfinder', loginHelpers.userChecker, function(req, res) {
-	//web form response of the skill base
-	console.log("pinged");
-	console.log(req.body);
-
-});
+app.post('/skillfinder', loginHelpers.userChecker, skillHelpers.skillFinderPost);
 app.get('/api/skillfinderform', function(req,res) {
 	console.log("pinged");
 	console.log(req.body);
