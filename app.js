@@ -50,9 +50,12 @@ dbSkillLookup.once('open', function() { console.log("dbSkillLookup connected");}
 //calls helpers
 let loginHelpers = require("./helpers/loginHelper.js")({ Login: Login, Skill: Skill});
 let skillHelpers = require("./helpers/skillhelpers.js")({skillLookup: skillLookup,  Login: Login, Skill: Skill});
-
+let apiHellpers = require("./helpers/apiHelper")({skillLookup: skillLookup,  Login: Login, Skill: Skill});
 // Basic Web Pages
+
+
 app.get('/home', function(req, res) {
+	apiHellpers.skilltreeLoader([{tid:0, id:0},{tid:0, id:1}]);
 	res.render('home');
 });
 
@@ -71,24 +74,28 @@ app.post('/newlogin', loginHelpers.postNewLogin);
 app.post('/login', loginHelpers.postLogin);
 
 app.get('/dashboard', loginHelpers.userChecker, skillHelpers.dashboard ); 
-/* {
-	console.log("session data");
-	console.log(req.session.data);
-	
-	//Displays Persons Main Home Page where they can create and edit projects and the works
-});
- */
 app.get('/dashboard/:id/skillform', loginHelpers.userChecker, skillHelpers.skillupdate);
-
 app.post('/dashboard/:id/skillform', loginHelpers.userChecker, skillHelpers.skillPost);
 
-app.get('/skillfinder', loginHelpers.userChecker, function(req, res) {
-	//web form for the ability to search through skills
+
+
+app.get('/skillfinder', loginHelpers.userChecker, skillHelpers.skillFinderGet);
+
+app.get('/api/skillfinderform', function (req, res)
+{
+	//send all the data
 });
+
+
 app.post('/skillfinder', loginHelpers.userChecker, function(req, res) {
 	//web form response of the skill base
+	console.log("pinged");
+	console.log(req.body);
+
 });
-app.post('api/skillfinder', function(req,res) {
+app.get('/api/skillfinderform', function(req,res) {
+	console.log("pinged");
+	console.log(req.body);
 
 });
 

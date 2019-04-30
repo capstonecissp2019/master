@@ -8,7 +8,17 @@ module.exports = function(db) {
     let skillSchema = new Schema({
         pid: String,
         name: String,
-        abilities: []
+        abilities: [
+            {id: Number,
+             name: String,
+            value: Number,
+            parents: [
+                {
+                    tid: Number,
+                    value: Number,
+                }
+            ],
+        }],
 
     });
 

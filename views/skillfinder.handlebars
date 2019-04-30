@@ -1,0 +1,10 @@
+<h1> what skills you got for {{skill.name}} </h1>
+ <form method="POST" action="skillfinder" id="skillform">
+    <P>
+    {{#each skillGroups}}
+    <input type="checkbox" name="{{id}}" id="{{id}}" value="1"> {{name}}<br>
+    {{/each}}
+    </P>
+    <button type="button" id="advanced">Advanced Search </button>
+    <input type="submit" value="Update Skills">
+ </form>

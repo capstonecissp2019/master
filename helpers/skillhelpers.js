@@ -1,5 +1,8 @@
 module.exports = function(options) {
 
+
+
+
     return {
         tester: function(req, res) {
             new options.skillLookup({
@@ -354,7 +357,16 @@ module.exports = function(options) {
                     }
                 });       
             });
-        }
+        },
+        skillFinderGet: function(req, res) 
+        {
+            //get shit from database
+            let databaseReturn = [{name: "Basic Java", id:"basicJava"}, {name: "Basic C", id:"basicc"}, {name: "Advanced Java", id:"advancedJava"} ];
+            
+            res.render('skillfinder', {skillGroups: databaseReturn});
+            
+                //web form for the ability to search through skills
+        },
 
     };
 };
